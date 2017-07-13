@@ -25,33 +25,37 @@ void parser() {
 	while (true)
 	{
 		cout << "> ";
-		stringstream commandBuf;
-		commandBuf  cin;
+		string commandBuf;
+		unsigned uavID;
 		string paramBuf0;
 		string paramBuf1;
-		getline(commandBuf, paramBuf0);
-		if (commandBuf.fail()) {
-			cout << "Input error" << endl;
+		cin >> commandBuf;
+		if (commandBuf.empty()) {
+			cin.clear();
+			cout << "Error: Empty Command" << endl;
 		}
+
 // ---------------------------- help ----------------------------
-		if (paramBuf0.compare("help") == 0) command_list();
+		if (commandBuf.compare("help") == 0) command_list();
 
 // ---------------------------- exit ----------------------------
-		else if ((paramBuf0.compare("exit") == 0)
-			|| (paramBuf0.compare("quit") == 0)) {
+		else if ((commandBuf.compare("exit") == 0)
+			|| (commandBuf.compare("quit") == 0)) {
 			break;
 		}
 
 // --------------------------- connect --------------------------
-		else if (paramBuf0.compare("connect") == 0) {
-			getline(commandBuf, paramBuf1);
-			if (commandBuf.fail()) {
-				cout << "Error: 0" << endl;
-			}
-			if (commandBuf.eof()) {
-				cout << "Error: 1" << endl;
-			}
+		else if (commandBuf.compare("connect") == 0) {
+			cin >> uavID;
+			connect2UAV(uavID);
 			continue;
+		}
+
+// -------------------------- readfield -------------------------
+		else if (commandBuf.compare("read") == 0) {
+			int fieldID;
+			cin >> fieldID;
+
 		}
 
 		else {
